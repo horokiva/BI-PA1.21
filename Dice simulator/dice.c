@@ -5,11 +5,7 @@
 
 int generateRandomNumber(int upper) 
 {
-    srand(time(NULL));
-
-    int random_number = (rand() % upper) + 1;
-
-    return random_number;
+    return rand() % upper + 1;
 }
 
 int main () 
@@ -17,26 +13,27 @@ int main ()
     int dice_size;
     char response;
 
+    srand(time(NULL));
+
     while (true)
     {
-    
         printf("Enter dice size: "); 
 
-        int conversion = scanf("%d", &dice_size);
-
-        if (conversion == EOF) 
-        {
-            break;
-        }
-        if (conversion != 1) 
+        if (scanf("%d", &dice_size) != 1) 
         {
             printf("Wrong input. Try once again.\n");
-            scanf("%*s"); // Vycistenie vstupu
+            scanf("%*s"); // Clear input buffer
 
-            printf("Do you want to continue: ");
-            if (scanf("%s", &response) == "y") 
+            printf("Do you want to continue? (y/n): ");
+            scanf(" %c", &response); // Use %c to read a single character
+
+            if (response == 'y' || response == 'Y') 
             {
                 continue;
+            }
+            else
+            {
+                break;
             }
         }
 
